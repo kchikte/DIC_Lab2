@@ -9,14 +9,15 @@ import java.io.IOException;
 import java.util.StringTokenizer;
 
 public class D3Word {
-	private String words = "var words = ["; //{text: 'have', size: 102,href: 'https://en.wikipedia.org/wiki/Beadle'},
-	public D3Word(String filepath, String fileOutput) {
+//	private String words = "var words = ["; //{text: 'have', size: 102,href: 'https://en.wikipedia.org/wiki/Beadle'},
+	public D3Word(String filepath, String fileOutput, String words_var) {
 		try {
 			FileReader fis = new FileReader(filepath);
 			BufferedReader br = new BufferedReader(fis);
 			String line="";
 			StringTokenizer splitter;
 			String word="";
+			String words="var "+words_var+"=[";
 			while((line=br.readLine())!=null) {
 				splitter=new StringTokenizer(line);
 				word=splitter.nextToken();

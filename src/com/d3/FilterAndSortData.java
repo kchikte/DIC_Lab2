@@ -41,7 +41,6 @@ public class FilterAndSortData {
 			String word1="";
 			String count="";
 			while((line=bir.readLine())!=null) {
-//				System.out.println(line);
 				if(line.trim()!="") {
 					splitter=new StringTokenizer(line);
 					word1=splitter.nextToken();
@@ -50,15 +49,12 @@ public class FilterAndSortData {
 					count_map.put(count, word1);
 				}
 			}
-//			System.out.println(words_list);
 			Collections.sort(words_list);
-//			System.out.println(words_list);
 			int start_index=words_list.size()-1;
 			int end_index=start_index-top_words_count;
 			String sorted_words="";
 			for(int index=start_index;index>end_index;index--) {
 				count = ""+words_list.get(index);
-//				System.out.println(count);
 				word1 = count_map.get(count);
 				sorted_words+=word1+" "+count+"\n";
 			}

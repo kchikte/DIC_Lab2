@@ -5,17 +5,70 @@
     <script src="../lib/d3/d3.js" charset="utf-8"></script>
     <script src="../lib/d3/d3.layout.cloud.js"></script>
     <script src="../d3.wordcloud.js"></script>
-    <script src="twitter.words.js"></script>
+    <script src="gun_violence_output_d3.words.js"></script>
+    <script src="gun_shooting_output_d3.words.js"></script>
+    <script src="gun_abuse_output_d3.words.js"></script>
   </head>
   <body style="text-align: center">
     <h1>Word Cloud-Twitter Data</h1>
-    <div id='wordcloud'></div>
-    <p>This is a word cloud of the tweets collected using key words = Gun Violence</p>
+    <div id="drop_down_div"></div>
+    <div id='wordcloud' style="padding: 10px; "></div>
+    <p id="word_cloud_desc">This is a word cloud of the tweets collected using <b>gun violence</b>> as keyword(s)</p>
     <script>
+      var word_cloud_words=["gun_violence_outputwords","gun_shooting_outputwords","gun_abuse_outputwords"];
+      var drop_down="<select id='word_cloud_dropdown' onchange='generate_word_cloud()'>";
+      var word_cloud_selection="gun_violence_outputwords";
+      window.onload=function(){
+      for(var i=0;i<word_cloud_words.length;i++){
+        drop_down+="<option value='"+word_cloud_words[i]+"'>"+word_cloud_words[i]+"</option>";
+      }
+      drop_down+="</select>";
+      document.getElementById("drop_down_div").innerHTML=drop_down;
+     }
+     function generate_word_cloud(e){
+      var selection =document.getElementById("word_cloud_dropdown").value;
+      console.log("selection : "+selection);
+      document.getElementById("wordcloud").innerHTML="";
+      if(selection == "gun_violence_outputwords"){
+        d3.wordcloud()
+          .size([500, 300])
+          .fill(d3.scale.ordinal().range(["#884400", "#448800", "#888800", "#444400"]))
+          .words(gun_violence_outputwords)
+          .onwordclick(function(d, i) {
+            if (d.href) { window.location = d.href; }
+          })
+          .start();
+      }
+      else if(selection == "gun_shooting_outputwords"){
+        d3.wordcloud()
+          .size([500, 300])
+          .fill(d3.scale.ordinal().range(["#884400", "#448800", "#888800", "#444400"]))
+          .words(gun_shooting_outputwords)
+          .onwordclick(function(d, i) {
+            if (d.href) { window.location = d.href; }
+          })
+          .start();
+      }
+      else if(selection == "gun_abuse_outputwords"){
+        d3.wordcloud()
+          .size([500, 300])
+          .fill(d3.scale.ordinal().range(["#884400", "#448800", "#888800", "#444400"]))
+          .words(gun_abuse_outputwords)
+          .onwordclick(function(d, i) {
+            if (d.href) { window.location = d.href; }
+          })
+          .start();
+      }
+      selection=selection.replace("outputwords","");
+      selection=selection.replace("_"," ");
+      selection=selection.replace("_"," ");
+
+      document.getElementById("word_cloud_desc").innerHTML="This is a word cloud of the tweets collected using "+selection+" as keyword(s)";
+     }
       d3.wordcloud()
         .size([500, 300])
         .fill(d3.scale.ordinal().range(["#884400", "#448800", "#888800", "#444400"]))
-        .words(words)
+        .words(gun_violence_outputwords)
         .onwordclick(function(d, i) {
           if (d.href) { window.location = d.href; }
         })
